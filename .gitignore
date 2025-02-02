@@ -1,0 +1,2 @@
+/storage/videofiles/*
+!/storage/videofiles/.gitkeep

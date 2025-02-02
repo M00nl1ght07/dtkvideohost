@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="/styles/autoriz.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <main class="auth-section">
+            <div class="auth-wrapper">
+                <a href="#" class="logo-link">
+                    <img src="../img/logosvgvideo.svg" alt="Логотип ДТК" class="logo-img">
+                </a>
+                
+                <div class="auth-content">
+                    <h1 class="auth-heading">Авторизация</h1>
+                    
+                    <form class="auth-form" action="autorization.php" method="POST">
+                        <div class="input-group">
+                            <label for="login" class="input-label">Логин</label>
+                            <div class="input-wrapper">
+                                <img src="../img/login.svg" alt="" class="input-icon">
+                                <input 
+                                    type="text" 
+                                    id="login" 
+                                    name="login"
+                                    class="form-input"
+                                    placeholder="Введите логин"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="password" class="input-label">Пароль</label>
+                            <div class="input-wrapper">
+                                <img src="../img/password.svg" alt="" class="input-icon">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password"
+                                    class="form-input"
+                                    placeholder="Введите пароль"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Авторизоваться</button>
+                    </form>
+
+                    <div class="social-auth">
+                        <p class="social-text">Авторизация через соц. сети</p>
+                        <div class="social-links">
+                            <a href="https://t.me/dtkvideo_bot?start=authorize" class="social-link">
+                                <img src="../img/telegram-svgrepo-com.svg" alt="Telegram">
+                            </a>
+                            <a href="vk_login.php" class="social-link">
+                                <img src="../img/vk-v2-svgrepo-com.svg" alt="ВКонтакте">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="promo-section">
+            <div class="promo-image-wrapper">
+                <img src="../img/promo.png" alt="ДТК Видеохостинг" class="promo-image">
+            </div>
+            <div class="promo-text-wrapper">
+                <h2 class="promo-heading">Видеохостинг ПКФ “ДТК”</h2>
+                <p class="promo-text">Строим дороги в будущее, снимаем видео в настоящее</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Блок уведомлений -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get("error");
+
+            if (errorMessage) {
+                showNotification(errorMessage, false);
+            }
+        });
+
+        function showNotification(message, isSuccess) {
+            const notification = document.getElementById("notification");
+            notification.textContent = message;
+            notification.className = isSuccess ? "notification success" : "notification error";
+            notification.style.display = "block";
+
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 5000);
+        }
+
+        const form = document.querySelector('.auth-form'); // Твой класс формы
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Останавливаем стандартное поведение формы
+
+            const formData = new FormData(form); // Собираем данные формы
+
+            try {
+                // Отправляем запрос на сервер
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const result = await response.json(); // Ожидаем JSON-ответ
+
+                if (result.success) {
+                    // Если успех — редирект
+                    window.location.href = result.redirect || 'videoload.php'; // Редирект на страницу
+                } else {
+                    // Если ошибка — показать уведомление
+                    showNotification(result.message || 'Неверный логин или пароль', false);
+                }
+            } catch (error) {
+                showNotification('Ошибка соединения с сервером', false);
+            }
+        });
+    </script>
+</body>
+</html>
