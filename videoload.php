@@ -242,7 +242,7 @@
                     <div class="video-date">${video.upload_date}</div>
                     <div class="play-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
+                            <path fill="#ff9900" d="M8 5v14l11-7z"/>
                         </svg>
                     </div>
                 </div>
