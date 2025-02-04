@@ -9,8 +9,17 @@
             --primary-color: #1A272D;
             --secondary-color: #2A3437;
             --accent-color: #FF9900;
-            --text-color: #1A272D;
-            --bg-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            -ms-user-drag: none;
+            user-drag: none;
         }
 
         * {
@@ -20,26 +29,25 @@
         }
 
         body {
-            background-color: var(--bg-color);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Roboto', sans-serif;
-            color: var(--text-color);
+            background-color: var(--primary-color);
             padding: 20px;
         }
 
         .error-container {
             text-align: center;
             padding: 40px;
-            background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(26, 39, 45, 0.1);
             max-width: 600px;
             width: 100%;
             position: relative;
             overflow: hidden;
+            background-color: var(--secondary-color);
         }
 
         .error-container::before {
@@ -54,26 +62,22 @@
 
         .error-code {
             font-size: clamp(80px, 15vw, 150px);
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 10px rgba(26, 39, 45, 0.1);
+            color: var(--accent-color);
         }
 
         h2 {
             font-size: clamp(24px, 5vw, 32px);
             margin-bottom: 20px;
-            color: var(--primary-color);
+            color: white;
         }
 
         p {
             font-size: clamp(16px, 3vw, 18px);
             margin-bottom: 30px;
-            color: var(--text-color);
+            color: white;
             line-height: 1.6;
         }
 
